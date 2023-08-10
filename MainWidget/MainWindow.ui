@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="ToolWindowManager" name="toolWindowManager" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuBooks">
+    <property name="title">
+     <string>Books</string>
+    </property>
+    <addaction name="actionaction_Qt5_9C_DeveloperGuide"/>
+   </widget>
+   <widget class="QMenu" name="menuCodeFiles">
+    <property name="title">
+     <string>ClassApplicate</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDraws">
+    <property name="title">
+     <string>Draws</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuMVC">
+    <property name="title">
+     <string>MVC</string>
+    </property>
+   </widget>
+   <addaction name="menuBooks"/>
+   <addaction name="menuCodeFiles"/>
+   <addaction name="menuDraws"/>
+   <addaction name="menuMVC"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionaction_Qt5_9C_DeveloperGuide">
+   <property name="text">
+    <string>action_Qt5.9C++DeveloperGuide</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ToolWindowManager</class>
+   <extends>QWidget</extends>
+   <header>D:/20230808NewQtProject/QtNewProject/MainWidget/toolwindowmanager/ToolWindowManager.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
