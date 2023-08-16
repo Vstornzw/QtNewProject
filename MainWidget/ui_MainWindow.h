@@ -25,7 +25,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionaction_Qt5_9C_DeveloperGuide;
+    QAction *action_Qt5_9C_DeveloperGuide;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_3;
     ToolWindowManager *toolWindowManager;
@@ -41,8 +41,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(800, 600);
-        actionaction_Qt5_9C_DeveloperGuide = new QAction(MainWindow);
-        actionaction_Qt5_9C_DeveloperGuide->setObjectName(QString::fromUtf8("actionaction_Qt5_9C_DeveloperGuide"));
+        action_Qt5_9C_DeveloperGuide = new QAction(MainWindow);
+        action_Qt5_9C_DeveloperGuide->setObjectName(QString::fromUtf8("action_Qt5_9C_DeveloperGuide"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout_3 = new QVBoxLayout(centralwidget);
@@ -73,7 +73,7 @@ public:
         menubar->addAction(menuCodeFiles->menuAction());
         menubar->addAction(menuDraws->menuAction());
         menubar->addAction(menuMVC->menuAction());
-        menuBooks->addAction(actionaction_Qt5_9C_DeveloperGuide);
+        menuBooks->addAction(action_Qt5_9C_DeveloperGuide);
 
         retranslateUi(MainWindow);
 
@@ -83,7 +83,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        actionaction_Qt5_9C_DeveloperGuide->setText(QApplication::translate("MainWindow", "action_Qt5.9C++DeveloperGuide", nullptr));
+        action_Qt5_9C_DeveloperGuide->setText(QApplication::translate("MainWindow", "Qt5.9C++DeveloperGuide", nullptr));
+#ifndef QT_NO_TOOLTIP
+        action_Qt5_9C_DeveloperGuide->setToolTip(QApplication::translate("MainWindow", "action_Qt5.9C++DeveloperGuide", nullptr));
+#endif // QT_NO_TOOLTIP
         menuBooks->setTitle(QApplication::translate("MainWindow", "Books", nullptr));
         menuCodeFiles->setTitle(QApplication::translate("MainWindow", "ClassApplicate", nullptr));
         menuDraws->setTitle(QApplication::translate("MainWindow", "Draws", nullptr));

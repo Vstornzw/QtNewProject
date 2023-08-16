@@ -17,7 +17,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionaction_Qt5_9C_DeveloperGuide_triggered();
+    void on_action_Qt5_9C_DeveloperGuide_triggered();
 
 private:
 

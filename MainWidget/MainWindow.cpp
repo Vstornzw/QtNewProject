@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_actionaction_Qt5_9C_DeveloperGuide_triggered()
+void MainWindow::on_action_Qt5_9C_DeveloperGuide_triggered()
 {
     Qt5_9CDeveloperGuideWidget *qt5_9CDeveloperGuideWidget = new Qt5_9CDeveloperGuideWidget(this);
 
