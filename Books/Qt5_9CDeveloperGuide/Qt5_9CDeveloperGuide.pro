@@ -11,12 +11,16 @@ CONFIG += c++11
 
 SOURCES += \
     DGTreeModel.cpp \
-    Qt5_9CDeveloperGuideWidget.cpp
+    Qt5_9CDeveloperGuideWidget.cpp \
+    chap13Thead/samp13_1ThreadSignal/dialog13_1.cpp \
+    chap13Thead/samp13_1ThreadSignal/qdicethread13_1.cpp
 
 HEADERS += \
     DGTreeModel.h \
     Qt5_9CDeveloperGuideWidget.h \
-    Qt5_9CDeveloperGuide_global.h
+    Qt5_9CDeveloperGuide_global.h \
+    chap13Thead/samp13_1ThreadSignal/dialog13_1.h \
+    chap13Thead/samp13_1ThreadSignal/qdicethread13_1.h
 
 # Default rules for deployment.
 unix {
@@ -25,4 +29,8 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    Qt5_9CDeveloperGuideWidget.ui
+    Qt5_9CDeveloperGuideWidget.ui \
+    chap13Thead/samp13_1ThreadSignal/dialog13_1.ui
+
+RESOURCES += \
+    Resources.qrc

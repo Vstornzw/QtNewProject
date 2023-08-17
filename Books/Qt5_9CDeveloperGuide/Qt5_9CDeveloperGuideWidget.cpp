@@ -4,6 +4,8 @@
 #include "ui_Qt5_9CDeveloperGuideWidget.h"
 #include "DGTreeModel.h"
 
+#include "chap13Thead/samp13_1ThreadSignal/dialog13_1.h"
+
 
 Qt5_9CDeveloperGuideWidget::Qt5_9CDeveloperGuideWidget(QWidget *parent) :
     QWidget(parent),
@@ -107,3 +109,10 @@ void Qt5_9CDeveloperGuideWidget::onTreeViewClick(QModelIndex &index)
 {
 
 }
+
+void Qt5_9CDeveloperGuideWidget::on_pushButton_clicked()
+{
+    Dialog13_1 dig(this);
+    dig.exec();
+}
+

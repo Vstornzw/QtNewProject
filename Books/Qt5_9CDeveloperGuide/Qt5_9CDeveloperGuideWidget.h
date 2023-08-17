@@ -20,6 +20,9 @@ protected:
     void initTree();
 protected slots:
     void onTreeViewClick(QModelIndex &index);
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Qt5_9CDeveloperGuideWidget *ui;
 };

@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>chap13Thead/samp13_1ThreadSignal/images/d0.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/d1.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/d2.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/d3.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/d4.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/d5.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/d6.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/dice.jpg</file>
+        <file>chap13Thead/samp13_1ThreadSignal/images/timg2.jpg</file>
+    </qresource>
+</RCC>

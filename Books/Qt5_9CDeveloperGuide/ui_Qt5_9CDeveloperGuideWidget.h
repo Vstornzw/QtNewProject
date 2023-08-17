@@ -14,6 +14,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QWidget>
 
@@ -25,6 +26,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QTreeView *treeView;
     QLabel *label;
+    QPushButton *pushButton;
 
     void setupUi(QWidget *Qt5_9CDeveloperGuideWidget)
     {
@@ -45,6 +47,11 @@ public:
 
         horizontalLayout->addWidget(label);
 
+        pushButton = new QPushButton(Qt5_9CDeveloperGuideWidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        horizontalLayout->addWidget(pushButton);
+
         horizontalLayout->setStretch(0, 2);
         horizontalLayout->setStretch(1, 3);
 
@@ -57,6 +64,7 @@ public:
     {
         Qt5_9CDeveloperGuideWidget->setWindowTitle(QApplication::translate("Qt5_9CDeveloperGuideWidget", "Form", nullptr));
         label->setText(QString());
+        pushButton->setText(QApplication::translate("Qt5_9CDeveloperGuideWidget", "PushButton", nullptr));
     } // retranslateUi
 
 };
