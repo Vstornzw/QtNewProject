@@ -84,7 +84,6 @@ void CTreeItem::clear()
 }
 
 
-
 DGTreeModel::DGTreeModel(const QStringList& headers, QObject *parent)
     : QAbstractItemModel(parent)
 {
@@ -95,16 +94,6 @@ DGTreeModel::DGTreeModel(const QStringList& headers, QObject *parent)
 DGTreeModel::~DGTreeModel()
 {
     delete m_rootItem;
-}
-
-CTreeItem *DGTreeModel::itemFromIndex(const QModelIndex &index) const
-{
-    if (index.isValid())
-    {
-        CTreeItem *item = static_cast<CTreeItem*>(index.internalPointer());
-        return item;
-    }
-    return m_rootItem;
 }
 
 // 获取表头数据
@@ -129,7 +118,7 @@ QVariant DGTreeModel::data(const QModelIndex &index, int role) const
     CTreeItem *item = itemFromIndex(index);
     if (role == Qt::DisplayRole)
     {
-        return item->data(index.column());
+        return item->data(index.column());//本次界面只有一列，故只返回名称
     }
     return QVariant();
 }
@@ -142,10 +131,12 @@ QModelIndex DGTreeModel::index(int row, int column, const QModelIndex &parent) c
 
     CTreeItem *parentItem = itemFromIndex(parent);
     CTreeItem *item = parentItem->child(row);
-    if (item)
+    if (item) {
+        //与CTreeItem *item = static_cast<CTreeItem*>(index.internalPointer());对应
         return createIndex(row, column, item);
-    else
+    } else {
         return QModelIndex();
+    }
 }
 
 // 创建index的父索引
@@ -197,80 +188,13 @@ void DGTreeModel::updateTree()
     endResetModel();
 }
 
-Qt::ItemFlags DGTreeModel::flags(const QModelIndex &index) const
+CTreeItem *DGTreeModel::itemFromIndex(const QModelIndex &index) const
 {
-    if (!index.isValid())
-        return Qt::NoItemFlags;
-
-    CTreeItem* item = (CTreeItem*)index.internalPointer();
-    if (item)
+    if (index.isValid())
     {
-        if (item->data(2).toInt() == 1)
-        {
-            Qt::ItemFlags flag = QAbstractItemModel::flags(index);
-            return flag | Qt::ItemIsDropEnabled;
-        }
+        CTreeItem *item = static_cast<CTreeItem*>(index.internalPointer());
+        return item;
     }
-    Qt::ItemFlags flag = QAbstractItemModel::flags(index);
-    return flag | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
-
-//    return Qt::ItemIsEditable; // FIXME: Implement me!
+    return m_rootItem;
 }
 
-//QMimeData *DGTreeModel::mimeData(const QModelIndexList &indexes) const
-//{
-//    if (indexes.count() <= 0)
-//        return 0;
-
-//    QMimeData* mimeData = QAbstractItemModel::mimeData(indexes);
-
-//    QModelIndex index = indexes.at(0);
-
-//    CTreeItem* item = (CTreeItem*)index.internalPointer();
-//    mimeData->setData("name", item->data(0).toByteArray());
-//    mimeData->setData("type", item->data(1).toByteArray());
-//    mimeData->setData("level", item->data(1).toByteArray());
-
-//    return mimeData;
-
-//}
-
-//bool DGTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
-//{
-//    int type = data->data("type").toInt();
-//    QString name = data->data("name");
-
-//    CTreeItem *item = static_cast<CTreeItem*>(parent.internalPointer());
-//    int ptype = item->data(1).toInt();
-//    int plevel = item->data(2).toInt();
-
-//    switch (plevel)
-//    {
-//    case 1:
-//    {
-//        if (type == ptype)
-//            item->addChildItem(new CTreeItem(QVariantList()<<name<<type<<2, item));
-//        break;
-//    }
-//    case 2:
-//    {
-//        if (type == ptype)
-//            item->parent()->addChildItem(new CTreeItem(QVariantList()<<name<<type<<2, item->parent()));
-//        break;
-//    }
-//    default:
-//        break;
-//    }
-
-//    beginResetModel();
-//    endResetModel();
-
-//    return true;
-//}
-
-//QStringList DGTreeModel::mimeTypes() const
-//{
-//    QStringList types;
-//    types << "drag";
-//    return types;
-//}

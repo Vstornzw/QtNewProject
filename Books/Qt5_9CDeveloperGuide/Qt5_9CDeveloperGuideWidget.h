@@ -2,6 +2,7 @@
 #define QT5_9CDEVELOPERGUIDEWIDGET_H
 
 #include <QWidget>
+#include <QMouseEvent>
 #include "Qt5_9CDeveloperGuide_global.h"
 
 namespace Ui {
@@ -18,8 +19,7 @@ public:
 
 protected:
     void initTree();
-protected slots:
-    void onTreeViewClick(QModelIndex &index);
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 private slots:
     void on_pushButton_clicked();
 
