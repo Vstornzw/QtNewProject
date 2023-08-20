@@ -29,14 +29,10 @@ private slots:
     void    onthreadA_newValue(int seq, int diceValue);
 
     void on_btnClear_clicked();
-
-    void on_btnDiceEnd_clicked();
-
-    void on_btnDiceBegin_clicked();
-
-    void on_btnStopThread_clicked();
-
-    void on_btnStartThread_clicked();
+    void on_btnStartThread_clicked();//启动线程；未开始掷骰子
+    void on_btnDiceBegin_clicked();//开始掷骰子
+    void on_btnDiceEnd_clicked();//暂停掷骰子
+    void on_btnStopThread_clicked();//结束线程
 
 private:
     Ui::Dialog *ui;
