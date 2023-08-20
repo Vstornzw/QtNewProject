@@ -69,7 +69,7 @@
   <customwidget>
    <class>ToolWindowManager</class>
    <extends>QWidget</extends>
-   <header>D:/20230808NewQtProject/QtNewProject/MainWidget/toolwindowmanager/ToolWindowManager.h</header>
+   <header location="global">toolwindowmanager/ToolWindowManager.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

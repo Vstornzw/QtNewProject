@@ -9,7 +9,7 @@ namespace Ui {
 class Dialog;
 }
 
-class QT5_9CDEVELOPERGUIDE_EXPORT Dialog13_1 : public QDialog
+class QT5_9CDEVELOPERGUIDE_EXPORT Dlg13_1ThreadSignal : public QDialog
 {
     Q_OBJECT
 
@@ -20,8 +20,8 @@ protected:
     void    closeEvent(QCloseEvent *event);
 
 public:
-    explicit Dialog13_1(QWidget *parent = 0);
-    ~Dialog13_1();
+    explicit Dlg13_1ThreadSignal(QWidget *parent = 0);
+    ~Dlg13_1ThreadSignal();
 
 private slots:
     void    onthreadA_started();//线程start时，槽函数接收信号

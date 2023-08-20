@@ -28,7 +28,7 @@ void Qt5_9CDeveloperGuideWidget::initTree()
     ui->treeView->setModel(model);
     CTreeItem *root =model->rootItem();
 
-
+    //12
     CTreeItem *item = new CTreeItem(QVariantList()<<QString::fromLocal8Bit("chap12")<<CHAPTER<<1, root);
     // test1
     CTreeItem *item3 = new CTreeItem(QVariantList()<<QString("test1")<<EXAMPLE<<2, item);
@@ -38,9 +38,10 @@ void Qt5_9CDeveloperGuideWidget::initTree()
     item->addChildItem(item4);
     root->addChildItem(item);
 
+    //13
     item = new CTreeItem(QVariantList()<<"chap13"<<CHAPTER<<1, root);
-    // test1
-    CTreeItem *item1 = new CTreeItem(QVariantList()<<QString("1ThreadSignal")<<EXAMPLE<<2, item);
+    // 这里第一个要添加类的名哦
+    CTreeItem *item1 = new CTreeItem(QVariantList()<<QString("Dlg13_1ThreadSignal")<<EXAMPLE<<2, item);
     item->addChildItem(item1);
     // test2
     CTreeItem *item2 = new CTreeItem(QVariantList()<<QString("test2")<<EXAMPLE<<2, item);
@@ -53,32 +54,23 @@ void Qt5_9CDeveloperGuideWidget::initTree()
     ui->treeView->collapseAll();
 }
 
-void Qt5_9CDeveloperGuideWidget::mousePressEvent(QMouseEvent *e)
+void Qt5_9CDeveloperGuideWidget::on_treeView_clicked(const QModelIndex &index)
 {
-   qDebug() << "0";
-    if( e->button() == Qt::LeftButton )          //是否左键按下
+    if(!index.isValid())
     {
-        QModelIndex index = ui->treeView->indexAt(e->pos());  //取出按下点的元素索引index
-        if(!index.parent().isValid())
-        {
-            return;
-        }
-        qDebug() << "1";
-        CTreeItem *item = static_cast<CTreeItem*>(index.internalPointer());
-        if (item->GetQVariantList().value(1) == TreeNodeType::CHAPTER) {
-            qDebug() << "i an CHAPTER";
-        } else if (item->GetQVariantList().value(1) == TreeNodeType::EXAMPLE) {
-            Dialog13_1 dig(this);
-            dig.exec();
-            qDebug() << "i an EXAMPLE";
-        }
-
+        return;
     }
-}
-
-void Qt5_9CDeveloperGuideWidget::on_pushButton_clicked()
-{
-    Dialog13_1 dig(this);
-    dig.exec();
+    CTreeItem *item = static_cast<CTreeItem*>(index.internalPointer());
+    if(item->GetQVariantList().value(1) == TreeNodeType::CHAPTER) {
+        qDebug() << "i am CHARTER";
+    }
+    else if (item->GetQVariantList().value(1) == TreeNodeType::EXAMPLE)
+    {
+        if (item->GetQVariantList().value(0) == "Dlg13_1ThreadSignal")
+        {
+            Dlg13_1ThreadSignal dig(this);
+            dig.exec();
+        }
+    }
 }
 

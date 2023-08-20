@@ -1,7 +1,7 @@
 ﻿#include "dialog13_1.h"
 #include "ui_dialog13_1.h"
 
-Dialog13_1::Dialog13_1(QWidget *parent) : QDialog(parent),  ui(new Ui::Dialog)
+Dlg13_1ThreadSignal::Dlg13_1ThreadSignal(QWidget *parent) : QDialog(parent),  ui(new Ui::Dialog)
 {//构造函数
     ui->setupUi(this);
     connect(&threadA,SIGNAL(started()),this,SLOT(onthreadA_started()));
@@ -10,12 +10,12 @@ Dialog13_1::Dialog13_1(QWidget *parent) : QDialog(parent),  ui(new Ui::Dialog)
     connect(&threadA,SIGNAL(newValue(int,int)),this,SLOT(onthreadA_newValue(int,int)));
 }
 
-Dialog13_1::~Dialog13_1()
+Dlg13_1ThreadSignal::~Dlg13_1ThreadSignal()
 {
     delete ui;
 }
 
-void Dialog13_1::closeEvent(QCloseEvent *event)
+void Dlg13_1ThreadSignal::closeEvent(QCloseEvent *event)
 { //窗口关闭事件，必须结束线程
     if (threadA.isRunning())
     {
@@ -25,17 +25,17 @@ void Dialog13_1::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void Dialog13_1::onthreadA_started()
+void Dlg13_1ThreadSignal::onthreadA_started()
 {//线程的started()信号的响应槽函数
     ui->LabA->setText(QString::fromLocal8Bit("Thread状态：")+QString("thread started"));
 }
 
-void Dialog13_1::onthreadA_finished()
+void Dlg13_1ThreadSignal::onthreadA_finished()
 {//线程的 finished()信号的响应槽函数
     ui->LabA->setText("Thread状态：thread finished");
 }
 
-void Dialog13_1::onthreadA_newValue(int seq,int diceValue)
+void Dlg13_1ThreadSignal::onthreadA_newValue(int seq,int diceValue)
 {//QDiceThread的newValue()信号的响应槽函数，显示骰子次数和点数
     QString  str=QString::fromLocal8Bit("第 ")+QString::asprintf("%d",seq)+
             QString::fromLocal8Bit("次掷骰子，点数为：") + QString::asprintf("%d",diceValue);
@@ -47,26 +47,26 @@ void Dialog13_1::onthreadA_newValue(int seq,int diceValue)
     ui->LabPic->setPixmap(pic);
 }
 
-void Dialog13_1::on_btnClear_clicked()
+void Dlg13_1ThreadSignal::on_btnClear_clicked()
 { //清空文本 按钮
     ui->plainTextEdit->clear();
 }
 
-void Dialog13_1::on_btnDiceEnd_clicked()
+void Dlg13_1ThreadSignal::on_btnDiceEnd_clicked()
 {//暂停 掷骰子按钮
     threadA.dicePause();
     ui->btnDiceBegin->setEnabled(true);
     ui->btnDiceEnd->setEnabled(false);
 }
 
-void Dialog13_1::on_btnDiceBegin_clicked()
+void Dlg13_1ThreadSignal::on_btnDiceBegin_clicked()
 {//开始 掷骰子按钮
     threadA.diceBegin();
     ui->btnDiceBegin->setEnabled(false);
     ui->btnDiceEnd->setEnabled(true);
 }
 
-void Dialog13_1::on_btnStopThread_clicked()
+void Dlg13_1ThreadSignal::on_btnStopThread_clicked()
 {//结束线程 按钮
     threadA.stopThread();//结束线程的run()函数执行
     threadA.wait();//
@@ -78,7 +78,7 @@ void Dialog13_1::on_btnStopThread_clicked()
     ui->btnDiceEnd->setEnabled(false);
 }
 
-void Dialog13_1::on_btnStartThread_clicked()
+void Dlg13_1ThreadSignal::on_btnStartThread_clicked()
 {//启动线程 按钮
     threadA.start();
 

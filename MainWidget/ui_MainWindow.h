@@ -18,7 +18,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "D:/20230808NewQtProject/QtNewProject/MainWidget/toolwindowmanager/ToolWindowManager.h"
+#include <toolwindowmanager/ToolWindowManager.h>
 
 QT_BEGIN_NAMESPACE
 
