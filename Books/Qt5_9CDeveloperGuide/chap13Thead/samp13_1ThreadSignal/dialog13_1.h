@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "Qt5_9CDeveloperGuide_global.h"
-#include    "qdicethread13_1.h"
+#include "qdicethread13_1.h"
 
 namespace Ui {
 class Dialog;

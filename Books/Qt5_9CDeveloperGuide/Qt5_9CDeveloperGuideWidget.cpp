@@ -3,7 +3,9 @@
 #include "Qt5_9CDeveloperGuideWidget.h"
 #include "ui_Qt5_9CDeveloperGuideWidget.h"
 #include "DGTreeModel.h"
+#include "SampDialog.h"
 #include "chap13Thead/samp13_1ThreadSignal/dialog13_1.h"
+#include "chap13Thead/samp13_2QMutex/dialog13_2.h"
 
 
 Qt5_9CDeveloperGuideWidget::Qt5_9CDeveloperGuideWidget(QWidget *parent) :
@@ -44,7 +46,7 @@ void Qt5_9CDeveloperGuideWidget::initTree()
     CTreeItem *item1 = new CTreeItem(QVariantList()<<QString("Dlg13_1ThreadSignal")<<EXAMPLE<<2, item);
     item->addChildItem(item1);
     // test2
-    CTreeItem *item2 = new CTreeItem(QVariantList()<<QString("test2")<<EXAMPLE<<2, item);
+    CTreeItem *item2 = new CTreeItem(QVariantList()<<QString("Dlg13_2QMutex")<<EXAMPLE<<2, item);
     item->addChildItem(item2);
     root->addChildItem(item);
 
@@ -70,7 +72,15 @@ void Qt5_9CDeveloperGuideWidget::on_treeView_clicked(const QModelIndex &index)
         {
             Dlg13_1ThreadSignal dig(this);
             dig.exec();
+        } else if (item->GetQVariantList().value(0) == "Dlg13_2QMutex")
+        {
+            Dia13_2QMutex dig(this);
+            dig.exec();
         }
+    }
+    else
+    {
+        return ;
     }
 }
 
