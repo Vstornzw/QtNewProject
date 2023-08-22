@@ -26,6 +26,7 @@ class Ui_MainWindow
 {
 public:
     QAction *action_Qt5_9C_DeveloperGuide;
+    QAction *action_DashBoardOne;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_3;
     ToolWindowManager *toolWindowManager;
@@ -43,6 +44,8 @@ public:
         MainWindow->resize(800, 600);
         action_Qt5_9C_DeveloperGuide = new QAction(MainWindow);
         action_Qt5_9C_DeveloperGuide->setObjectName(QString::fromUtf8("action_Qt5_9C_DeveloperGuide"));
+        action_DashBoardOne = new QAction(MainWindow);
+        action_DashBoardOne->setObjectName(QString::fromUtf8("action_DashBoardOne"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout_3 = new QVBoxLayout(centralwidget);
@@ -74,6 +77,7 @@ public:
         menubar->addAction(menuDraws->menuAction());
         menubar->addAction(menuMVC->menuAction());
         menuBooks->addAction(action_Qt5_9C_DeveloperGuide);
+        menuDraws->addAction(action_DashBoardOne);
 
         retranslateUi(MainWindow);
 
@@ -86,6 +90,10 @@ public:
         action_Qt5_9C_DeveloperGuide->setText(QApplication::translate("MainWindow", "Qt5.9C++DeveloperGuide", nullptr));
 #ifndef QT_NO_TOOLTIP
         action_Qt5_9C_DeveloperGuide->setToolTip(QApplication::translate("MainWindow", "action_Qt5.9C++DeveloperGuide", nullptr));
+#endif // QT_NO_TOOLTIP
+        action_DashBoardOne->setText(QApplication::translate("MainWindow", "DashBoardOne", nullptr));
+#ifndef QT_NO_TOOLTIP
+        action_DashBoardOne->setToolTip(QApplication::translate("MainWindow", "action_DashBoardOne", nullptr));
 #endif // QT_NO_TOOLTIP
         menuBooks->setTitle(QApplication::translate("MainWindow", "Books", nullptr));
         menuCodeFiles->setTitle(QApplication::translate("MainWindow", "ClassApplicate", nullptr));

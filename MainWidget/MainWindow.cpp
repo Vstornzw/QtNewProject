@@ -1,7 +1,8 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-#include "Qt5_9CDeveloperGuideWidget.h"
+#include "../Books/Qt5_9CDeveloperGuide/Qt5_9CDeveloperGuideWidget.h"
+#include "../Draws/DrawsDll/DashBoard/DashBoardOne.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,7 +25,7 @@ void MainWindow::on_action_Qt5_9C_DeveloperGuide_triggered()
 
     if(ui->toolWindowManager->toolWindows().contains(qt5_9CDeveloperGuideWidget))
         ToolWindowManager::raiseToolWindow(qt5_9CDeveloperGuideWidget);
-      else
+    else
         ui->toolWindowManager->addToolWindow(qt5_9CDeveloperGuideWidget, leftToolArea());
 }
 
@@ -41,5 +42,16 @@ ToolWindowManager::AreaReference MainWindow::mainToolArea()
 ToolWindowManager::AreaReference MainWindow::leftToolArea()
 {
   return ToolWindowManager::AreaReference(ToolWindowManager::LastUsedArea);
+}
+
+
+void MainWindow::on_action_DashBoardOne_triggered()
+{
+    DashBoardOne *dashBoardOne = new DashBoardOne(this);
+
+    if(ui->toolWindowManager->toolWindows().contains(dashBoardOne))
+        ToolWindowManager::raiseToolWindow(dashBoardOne);
+    else
+        ui->toolWindowManager->addToolWindow(dashBoardOne, leftToolArea());
 }
 

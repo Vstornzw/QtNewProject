@@ -19,8 +19,9 @@ public:
 private slots:
     void on_action_Qt5_9C_DeveloperGuide_triggered();
 
-private:
+    void on_action_DashBoardOne_triggered();
 
+private:
     ToolWindowManager *mainToolManager();
     ToolWindowManager::AreaReference mainToolArea();
     ToolWindowManager::AreaReference leftToolArea();
