@@ -39,3 +39,10 @@ else:unix:!macx: LIBS += -L$$OUT_PWD/../Books/Qt5_9CDeveloperGuide/ -lQt5_9CDeve
 
 INCLUDEPATH += $$PWD/../Books/Qt5_9CDeveloperGuide
 DEPENDPATH += $$PWD/../Books/Qt5_9CDeveloperGuide
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Draws/AllDrawsDll/release/ -lAllDrawsDll
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Draws/AllDrawsDll/debug/ -lAllDrawsDll
+else:unix: LIBS += -L$$OUT_PWD/../Draws/AllDrawsDll/ -lAllDrawsDll
+
+INCLUDEPATH += $$PWD/../Draws/AllDrawsDLL/debug
+DEPENDPATH += $$PWD/../Draws/AllDrawsDLL/debug

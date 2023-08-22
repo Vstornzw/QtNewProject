@@ -44,6 +44,7 @@
     <property name="title">
      <string>Draws</string>
     </property>
+    <addaction name="action_DashBoardOne"/>
    </widget>
    <widget class="QMenu" name="menuMVC">
     <property name="title">
@@ -62,6 +63,14 @@
    </property>
    <property name="toolTip">
     <string>action_Qt5.9C++DeveloperGuide</string>
+   </property>
+  </action>
+  <action name="action_DashBoardOne">
+   <property name="text">
+    <string>DashBoardOne</string>
+   </property>
+   <property name="toolTip">
+    <string>action_DashBoardOne</string>
    </property>
   </action>
  </widget>
