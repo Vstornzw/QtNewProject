@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_action_Qt5_9C_DeveloperGuide_triggered()
 {
     Qt5_9CDeveloperGuideWidget *qt5_9CDeveloperGuideWidget = new Qt5_9CDeveloperGuideWidget(this);
-
+    qt5_9CDeveloperGuideWidget->setWindowTitle("Qt5_9C_DG");
     if(ui->toolWindowManager->toolWindows().contains(qt5_9CDeveloperGuideWidget))
         ToolWindowManager::raiseToolWindow(qt5_9CDeveloperGuideWidget);
     else
@@ -48,7 +48,7 @@ ToolWindowManager::AreaReference MainWindow::leftToolArea()
 void MainWindow::on_action_DashBoardOne_triggered()
 {
     DashBoardOne *dashBoardOne = new DashBoardOne(this);
-
+    dashBoardOne->setWindowTitle("DashBoardOne");
     if(ui->toolWindowManager->toolWindows().contains(dashBoardOne))
         ToolWindowManager::raiseToolWindow(dashBoardOne);
     else
