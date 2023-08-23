@@ -2,11 +2,7 @@
 #include "ui_MainWindow.h"
 
 #include "../Books/Qt5_9CDeveloperGuide/Qt5_9CDeveloperGuideWidget.h"
-<<<<<<< HEAD
 #include "../Draws/DrawsDll/DashBoard/DashBoardOne.h"
-=======
-#include "../Draws/AllDrawsDLL/DashBoard/DashBoardOne.h"
->>>>>>> 21f35a137f4922cacc0b5ae6060c101229b84063
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
