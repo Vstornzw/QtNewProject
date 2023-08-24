@@ -6,7 +6,7 @@
 #include "SampDialog.h"
 #include "chap13Thead/samp13_1ThreadSignal/dialog13_1.h"
 #include "chap13Thead/samp13_2QMutex/dialog13_2.h"
-
+#include "chap13Thead/samp13_5Semaphore/dialog13_5.h"
 
 Qt5_9CDeveloperGuideWidget::Qt5_9CDeveloperGuideWidget(QWidget *parent) :
     QWidget(parent),
@@ -42,12 +42,17 @@ void Qt5_9CDeveloperGuideWidget::initTree()
 
     //13
     item = new CTreeItem(QVariantList()<<"chap13"<<CHAPTER<<1, root);
-    // 这里第一个要添加类的名哦
+    // Dlg13_1ThreadSignal
     CTreeItem *item1 = new CTreeItem(QVariantList()<<QString("Dlg13_1ThreadSignal")<<EXAMPLE<<2, item);
     item->addChildItem(item1);
-    // test2
+    // Dlg13_2QMutex
     CTreeItem *item2 = new CTreeItem(QVariantList()<<QString("Dlg13_2QMutex")<<EXAMPLE<<2, item);
     item->addChildItem(item2);
+    // Dlg13_5Semaphore
+    CTreeItem *item5 = new CTreeItem(QVariantList()<<QString("Dlg13_5Semaphore")<<EXAMPLE<<2, item);
+    item->addChildItem(item5);
+
+
     root->addChildItem(item);
 
     ui->treeView->setHeaderHidden(true);
@@ -75,6 +80,10 @@ void Qt5_9CDeveloperGuideWidget::on_treeView_clicked(const QModelIndex &index)
         } else if (item->GetQVariantList().value(0) == "Dlg13_2QMutex")
         {
             Dia13_2QMutex dig(this);
+            dig.exec();
+        } else if (item->GetQVariantList().value(0) == "Dlg13_5Semaphore")
+        {
+            Dlg13_5Semaphore dig(this);//这里还真就不能使用dialog.h界面
             dig.exec();
         }
     }

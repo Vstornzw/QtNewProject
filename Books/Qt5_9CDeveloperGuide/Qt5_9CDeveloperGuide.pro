@@ -16,7 +16,9 @@ SOURCES += \
     chap13Thead/samp13_1ThreadSignal/dialog13_1.cpp \
     chap13Thead/samp13_1ThreadSignal/qdicethread13_1.cpp \
     chap13Thead/samp13_2QMutex/dialog13_2.cpp \
-    chap13Thead/samp13_2QMutex/qdicethread13_2.cpp
+    chap13Thead/samp13_2QMutex/qdicethread13_2.cpp \
+    chap13Thead/samp13_5Semaphore/dialog13_5.cpp \
+    chap13Thead/samp13_5Semaphore/qmythread13_5.cpp
 
 HEADERS += \
     DGTreeModel.h \
@@ -26,7 +28,9 @@ HEADERS += \
     chap13Thead/samp13_1ThreadSignal/dialog13_1.h \
     chap13Thead/samp13_1ThreadSignal/qdicethread13_1.h \
     chap13Thead/samp13_2QMutex/dialog13_2.h \
-    chap13Thead/samp13_2QMutex/qdicethread13_2.h
+    chap13Thead/samp13_2QMutex/qdicethread13_2.h \
+    chap13Thead/samp13_5Semaphore/dialog13_5.h \
+    chap13Thead/samp13_5Semaphore/qmythread13_5.h
 
 # Default rules for deployment.
 unix {
@@ -37,6 +41,11 @@ unix {
 FORMS += \
     Qt5_9CDeveloperGuideWidget.ui \
     chap13Thead/samp13_1ThreadSignal/dialog13_1.ui \
-    chap13Thead/samp13_2QMutex/dialog13_2.ui
+    chap13Thead/samp13_2QMutex/dialog13_2.ui \
+    chap13Thead/samp13_5Semaphore/dialog13_5.ui
 RESOURCES += \
     Resources.qrc
+
+SUBDIRS += \
+    chap13Thead/samp13_5Semaphore/samp13_5.pro \
+    chap13Thead/samp13_5Semaphore/samp13_5.pro

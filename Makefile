@@ -27,6 +27,7 @@ DEL_DIR       = rmdir
 MOVE          = move
 SUBTARGETS    =  \
 		sub-Books \
+		sub-Draws \
 		sub-MainWidget
 
 
@@ -63,6 +64,39 @@ sub-Books-uninstall_subtargets: FORCE
 	@if not exist Books\ mkdir Books\ & if not exist Books\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd Books\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Books\Books.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile uninstall
+sub-Draws-qmake_all:  FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	cd Draws\ && $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && $(MAKE) -f Makefile qmake_all
+sub-Draws: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile
+sub-Draws-make_first: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile 
+sub-Draws-all: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile all
+sub-Draws-clean: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile clean
+sub-Draws-distclean: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile distclean
+sub-Draws-install_subtargets: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile install
+sub-Draws-uninstall_subtargets: FORCE
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile uninstall
 sub-MainWidget-qmake_all:  FORCE
 	@if not exist MainWidget\ mkdir MainWidget\ & if not exist MainWidget\ exit 1
 	cd MainWidget\ && $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\MainWidget\MainWidget.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -469,56 +503,72 @@ QtNewProject.pro:
 qmake: FORCE
 	@$(QMAKE) -o Makefile QtNewProject.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
 
-qmake_all: sub-Books-qmake_all sub-MainWidget-qmake_all FORCE
+qmake_all: sub-Books-qmake_all sub-Draws-qmake_all sub-MainWidget-qmake_all FORCE
 
-make_first: sub-Books-make_first sub-MainWidget-make_first  FORCE
-all: sub-Books-all sub-MainWidget-all  FORCE
-clean: sub-Books-clean sub-MainWidget-clean  FORCE
-distclean: sub-Books-distclean sub-MainWidget-distclean  FORCE
+make_first: sub-Books-make_first sub-Draws-make_first sub-MainWidget-make_first  FORCE
+all: sub-Books-all sub-Draws-all sub-MainWidget-all  FORCE
+clean: sub-Books-clean sub-Draws-clean sub-MainWidget-clean  FORCE
+distclean: sub-Books-distclean sub-Draws-distclean sub-MainWidget-distclean  FORCE
 	-$(DEL_FILE) Makefile
 	-$(DEL_FILE) .qmake.stash
-install_subtargets: sub-Books-install_subtargets sub-MainWidget-install_subtargets FORCE
-uninstall_subtargets: sub-Books-uninstall_subtargets sub-MainWidget-uninstall_subtargets FORCE
+install_subtargets: sub-Books-install_subtargets sub-Draws-install_subtargets sub-MainWidget-install_subtargets FORCE
+uninstall_subtargets: sub-Books-uninstall_subtargets sub-Draws-uninstall_subtargets sub-MainWidget-uninstall_subtargets FORCE
 
 sub-Books-debug:
 	@if not exist Books\ mkdir Books\ & if not exist Books\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd Books\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Books\Books.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile debug
+sub-Draws-debug:
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile debug
 sub-MainWidget-debug:
 	@if not exist MainWidget\ mkdir MainWidget\ & if not exist MainWidget\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd MainWidget\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\MainWidget\MainWidget.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile debug
-debug: sub-Books-debug sub-MainWidget-debug
+debug: sub-Books-debug sub-Draws-debug sub-MainWidget-debug
 
 sub-Books-release:
 	@if not exist Books\ mkdir Books\ & if not exist Books\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd Books\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Books\Books.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile release
+sub-Draws-release:
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile release
 sub-MainWidget-release:
 	@if not exist MainWidget\ mkdir MainWidget\ & if not exist MainWidget\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd MainWidget\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\MainWidget\MainWidget.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile release
-release: sub-Books-release sub-MainWidget-release
+release: sub-Books-release sub-Draws-release sub-MainWidget-release
 
 sub-Books-check:
 	@if not exist Books\ mkdir Books\ & if not exist Books\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd Books\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Books\Books.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile check
+sub-Draws-check:
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile check
 sub-MainWidget-check:
 	@if not exist MainWidget\ mkdir MainWidget\ & if not exist MainWidget\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd MainWidget\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\MainWidget\MainWidget.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile check
-check: sub-Books-check sub-MainWidget-check
+check: sub-Books-check sub-Draws-check sub-MainWidget-check
 
 sub-Books-benchmark:
 	@if not exist Books\ mkdir Books\ & if not exist Books\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd Books\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Books\Books.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile benchmark
+sub-Draws-benchmark:
+	@if not exist Draws\ mkdir Draws\ & if not exist Draws\ exit 1
+	@set MAKEFLAGS=$(MAKEFLAGS)
+	cd Draws\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\Draws\Draws.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile benchmark
 sub-MainWidget-benchmark:
 	@if not exist MainWidget\ mkdir MainWidget\ & if not exist MainWidget\ exit 1
 	@set MAKEFLAGS=$(MAKEFLAGS)
 	cd MainWidget\ && ( if not exist Makefile $(QMAKE) -o Makefile D:\20230808NewQtProject\QtNewProject\MainWidget\MainWidget.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile benchmark
-benchmark: sub-Books-benchmark sub-MainWidget-benchmark
+benchmark: sub-Books-benchmark sub-Draws-benchmark sub-MainWidget-benchmark
 install:install_subtargets  FORCE
 
 uninstall: uninstall_subtargets FORCE
