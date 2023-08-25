@@ -1,7 +1,6 @@
-QT += widgets
+QT       += core gui
 
-TEMPLATE = lib
-DEFINES += ALLDRAWSDLL_LIBRARY
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
@@ -10,14 +9,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    DashBoard/DashBoardOne.cpp
+    TimeLine.cpp \
+    main.cpp \
+    TraceView.cpp
 
 HEADERS += \
-    AllDrawsDll_global.h \
-    DashBoard/DashBoardOne.h
+    TimeLine.h \
+    TraceView.h
+
+FORMS += \
+    TraceView.ui
 
 # Default rules for deployment.
-unix {
-    target.path = /usr/lib
-}
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target

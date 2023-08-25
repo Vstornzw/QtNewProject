@@ -41,22 +41,22 @@ Dlg13_5Semaphore::~Dlg13_5Semaphore()
 
 void Dlg13_5Semaphore::onthreadA_started()
 {
-    ui->LabA->setText(QString::fromLocal8Bit("Thread Producer状态: started"));
+    ui->LabA->setText(QString("Thread Producer State: started"));
 }
 
 void Dlg13_5Semaphore::onthreadA_finished()
 {
-    ui->LabA->setText(QString::fromLocal8Bit("Thread Producer状态: finished"));
+    ui->LabA->setText(QString::fromLocal8Bit("Thread Producer State: finished"));
 }
 
 void Dlg13_5Semaphore::onthreadB_started()
 {
-    ui->LabB->setText(QString::fromLocal8Bit("Thread Consumer状态: started"));
+    ui->LabB->setText(QString::fromLocal8Bit("Thread Consumer State: started"));
 }
 
 void Dlg13_5Semaphore::onthreadB_finished()
 {
-    ui->LabB->setText(QString::fromLocal8Bit("Thread Consumer状态: finished"));
+    ui->LabB->setText(QString::fromLocal8Bit("Thread Consumer State: finished"));
 }
 
 void Dlg13_5Semaphore::onthreadB_newValue(int *data, int count, int bufNo)

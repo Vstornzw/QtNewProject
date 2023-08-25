@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     Books \
     Draws \
-    MainWidget
+    MainWidget \
+    QtExamples/SubQScrollAreaTest
