@@ -41,7 +41,8 @@ public:
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QString::fromUtf8("Dialog"));
-        Dialog->resize(438, 366);
+        Dialog->resize(804, 366);
+        Dialog->setMinimumSize(QSize(804, 276));
         QFont font;
         font.setPointSize(10);
         Dialog->setFont(font);

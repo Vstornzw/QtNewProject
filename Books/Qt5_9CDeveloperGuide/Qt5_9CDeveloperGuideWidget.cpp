@@ -83,7 +83,7 @@ void Qt5_9CDeveloperGuideWidget::on_treeView_clicked(const QModelIndex &index)
             dig.exec();
         } else if (item->GetQVariantList().value(0) == "Dlg13_5Semaphore")
         {
-            Dlg13_5Semaphore dig(this);//这里还真就不能使用dialog.h界面
+            Dlg13_5Semaphore dig;//这里还真就不能使用dialog.h界面
             dig.exec();
         }
     }

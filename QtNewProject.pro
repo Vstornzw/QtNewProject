@@ -4,4 +4,5 @@ SUBDIRS += \
     Books \
     Draws \
     MainWidget \
-    QtExamples/SubQScrollAreaTest
+    QtExamples/SubQScrollAreaTest \
+    QtExamples/qscrollarea
