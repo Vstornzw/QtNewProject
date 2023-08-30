@@ -5,3 +5,8 @@ CONFIG -= qt
 
 SOURCES += \
         main.c
+
+HEADERS += \
+    Hanoi.h \
+    LeeCode.h \
+    Sort.h

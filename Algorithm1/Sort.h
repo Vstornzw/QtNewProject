@@ -1,7 +1,6 @@
+#ifndef SORT_H
+#define SORT_H
 #include <stdio.h>
-
-#define SIZE 10
-
 //任务：
 // https://blog.csdn.net/m0_53036448/article/details/131638220
 
@@ -122,16 +121,4 @@ void QuickSort(int *arr, int len, char *str)
     QuickSort1(arr, 0, len - 1);
     Print_(arr, len, str);
 }
-
-
-int main()
-{
-    int arr[SIZE] = {12, 43, 9, 13, 67, 98, 101, 89, 3, 35};
-
-    //BubbleSort(arr, sizeof(arr) / sizeof(int), "BubbleSort");
-    //InsertSort(arr, sizeof(arr) / sizeof(int), "InsertSort");
-    //SelectSort(arr, sizeof(arr) / sizeof(int), "SelectSort");
-    QuickSort(arr, sizeof(arr) / sizeof(int), "QuickSort");
-
-    return 0;
-}
+#endif // SORT_H
