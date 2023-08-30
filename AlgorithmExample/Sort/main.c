@@ -131,7 +131,7 @@ int main()
     //BubbleSort(arr, sizeof(arr) / sizeof(int), "BubbleSort");
     //InsertSort(arr, sizeof(arr) / sizeof(int), "InsertSort");
     //SelectSort(arr, sizeof(arr) / sizeof(int), "SelectSort");
-    //QuickSort(arr, sizeof(arr) / sizeof(int), "QuickSort");
+    QuickSort(arr, sizeof(arr) / sizeof(int), "QuickSort");
 
     return 0;
 }

@@ -34,7 +34,7 @@ private:
     int mMaxEid = 0;
 };
 
-class TimeLine : QScrollBar
+class TimeLine : public QScrollBar
 {
     Q_OBJECT
 public:
@@ -100,11 +100,49 @@ private:
     qreal mPan = 0;
     //当前viewport的大小
     QRectF mArea;
+    // 当前鼠标位置
+    QPainter mPos;
+    //字长
+    qreal mMaxEidWidth;
+    //每个像素与eid的数值对比关系
+    qreal mPerPixel;
+    //是否显示游标
+    bool mShowCursor = true;
+    QFont mFont;
+    QPointF mPressePos;
+    bool mPressed = false;
+
+    qreal mCurPressedEid = -1;
+    qreal mCurMouseEid = -1;
     //
 
+    int mLineHeight = 0;
+    QSharedPointer<TimeLineScrollBar> mScrollBar;
+    QVector<uint32_t> mActions;
+    //
+    QMap<uint32_t, double> mTimes;
 
 
+    QVector<int> mClearEids;
+    QVector<int> mReadEids;
+    QVector<int> mWriteEids;
+    QVector<int> mAllMarkEids;
+    int mCurrentMarkIndex;
+    bool mIsFreeModel = true;//自由模式和定位模式，默认是自由模式
+    QColor mClearColor;
+    QColor mReadColor;
+    QColor mWriteColor;
+    QColor mHighLightColor;
+    QColor mBrickColor;
+    QColor mTextHightLightColor;
+    QColor mCursorBlackgroundColor;
+    QColor mBrickBorderColor;
+    QColor mTextColor;
+    QColor mEidLaelBackgroudColor;
 
+    int mSelectedResourceRect;
+
+    QRect mPressedEidRect;
 };
 
 #endif // TIMELINE_H
