@@ -1,10 +1,13 @@
 TEMPLATE = app
-CONFIG += console
+CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
+DEFINES -= UNICODE
+DEFINES += UMBCS
+QMAKE_CXXFLAGS -= -Zc:strictStrings
 
 SOURCES += \
-        main.c
+        main.cpp
 
 HEADERS += \
     Hanoi.h \

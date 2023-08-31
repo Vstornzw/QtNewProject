@@ -29,12 +29,13 @@ protected:
 
 signals:
     void MouseEnterSignal();
+
 private:
     QVector<QPair<QVector<int>,QColor>> mMarkDatas;
     int mMaxEid = 0;
 };
 
-class TimeLine : public QScrollBar
+class TimeLine : public QScrollArea
 {
     Q_OBJECT
 public:

@@ -1,6 +1,6 @@
 #ifndef SORT_H
 #define SORT_H
-
+#include <stdio.h>
 //任务：
 // https://blog.csdn.net/m0_53036448/article/details/131638220
 
@@ -121,5 +121,4 @@ void QuickSort(int *arr, int len, char *str)
     QuickSort1(arr, 0, len - 1);
     Print_(arr, len, str);
 }
-
 #endif // SORT_H

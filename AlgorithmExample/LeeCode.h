@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <vector>
-
-
-vector<int> twoSum(vector<int>& nums, int target) {
+#include <unordered_map>
+using namespace std;
+vector<int> _1_twoSum(vector<int>& nums, int target) {
         unordered_map<int, int> hashtable;
         for (int i = 0; i < nums.size(); ++i) {
             auto it = hashtable.find(target - nums[i]);
@@ -15,11 +15,15 @@ vector<int> twoSum(vector<int>& nums, int target) {
             hashtable[nums[i]] = i;
         }
         return {};
-    }
 }
 
 void LeeCode()
 {
 
+    {
+        vector<int> numsVec = {2,7,8,9,10};
+        vector<int> nums = _1_twoSum(numsVec, 9);
+        int a = 0;
+    }
 }
 #endif // LEECODE_H
