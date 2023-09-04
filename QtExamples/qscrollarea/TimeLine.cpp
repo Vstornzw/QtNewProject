@@ -98,7 +98,104 @@ void TimeLine::Layout()
     int stepSize = 1;
     int stepMagnitude = 1;
     while(virtualSize > 0 && (qreal(mMaxEid) / qreal(mEidAxisLabelStep)) * mMaxEidWidth > virtualSize) {
+        //label的步长为1,2,5,10,20,50,100
+        if(stepSize == 1) {
+            stepSize = 2;
+        } else if (stepSize == 2) {
+            stepSize = 5;
+        }else if (stepSize == 5) {
+            stepSize = 1;
+            stepMagnitude *= 10;
+        }
+        mEidAxisLabelStep = stepSize * stepMagnitude;
+    }
 
+    //每一个像素与eid数值对比关系
+    mPerPixel = mMaxEid / virtualSize;
+    qreal savedPan = mPan;
+    horizontalScrollBar()->setRange(0,virtualSize - mArea.width());
+    horizontalScrollBar()->setValue(-savedPan);
+    horizontalScrollBar()->setPageStep(mEidAxisLabelStep);
+    qDebug() <<"mPan---"<<mPan;
+}
+
+void TimeLine::paintEvent(QPaintEvent *e)
+{
+    Q_UNUSED(e);
+    QPainter p(viewport());
+    p.setFont(mFont);
+
+    //绘制背景色
+    DrawBackGroud(p);
+    //绘制EID对应的黑色框
+    DrawEidLineBounding(p);
+    //绘制eid 的数字
+    DrawEidLabel(p);
+    //鼠标光标位置停靠在eid行应画的动态黑框
+    DrawCursor(p);
+
+    //绘制数据
+    DrawDrawAndTexture(p);
+    DrawRenderpass(p);
+
+    //绘制当前eid的位置
+    DrawCurPressedEid(p);
+}
+
+void TimeLine::DrawBackGroud(QPainter &p)
+{
+    p.fillRect(viewport()->rect(),Qt::white);
+}
+
+void TimeLine::DrawEidLineBounding(QPainter &p)
+{
+    QPainterPath path;
+    path.moveTo(0,0);
+    path.lineTo(this->width(), 0);
+    path.lineTo(this->width(),mLineHeight - 6);
+    path.lineTo(0,mLineHeight - 6);\
+    p.drawPath(path);
+}
+
+void  TimeLine::DrawEidLabel(QPainter &p)
+{
+    p.save();
+    QRect labelRect(0,1,viewport()->width(),EID_LABEL_COLUMN_HEIGHT - 1);
+    p.fillRect(labelRect, mEidLaelBackgroudColor);
+    for(uint32_t i = 0; i < mMaxEid; i += mEidAxisLabelStep){
+        qreal pos = GetPosByValue(i);
+        QRect rc(pos, 0, mMaxEidWidth,EID_LABEL_COLUMN_HEIGHT);
+        if(rc.right() < 0) {
+            continue;
+        }
+        //偏移一半的宽度
+        rc = rc.adjusted(-mMaxEidWidth / 2, 0, -mMaxEidWidth / 2, 0);//需要按这个调整，否则最大的eid出不来
+        if(rc.left() > viewport()->width()) {
+            break;
+        }
+        p.drawText(rc,Qt::AlignCenter,QString::number(i));
+    }
+    p.restore();
+}
+
+qreal TimeLine::GetPosByValue(qreal i)
+{
+    return qreal(i) / mPerPixel + mPan;
+}
+
+void TimeLine::DrawCursor(QPainter &p)
+{
+    if(mShowCursor) {
+        p.save();
+        qreal pos = GetPosByValue(GetIntValue(GetValueByPos(mPos.x())));
+        p.setBrush(QBrush(mCursorBlackgroundColor));
+        qreal cursorLabelWidth = GetPosByValue(1) - GetPosByValue(0);
+        if(cursorLabelWidth < mMaxEidWidth) {
+            cursorLabelWidth = mMaxEidWidth;
+        }
+        QRectF mouseTextRect(pos,0,cursorLabelWidth,EID_LABEL_COLUMN_HEIGHT);
+        mouseTextRect = mouseTextRect.adjusted(-cursorLabelWidth / 2, 0, -cursorLabelWidth / 2, 0);
+        p.drawRect(mouseTextRect);
     }
 }
 

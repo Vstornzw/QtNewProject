@@ -35,8 +35,7 @@ private:
     int mMaxEid = 0;
 };
 
-class TimeLine : public QScrollArea
-{
+class TimeLine : public QScrollArea {
     Q_OBJECT
 public:
     TimeLine(QWidget *parent=nullptr);
@@ -102,7 +101,7 @@ private:
     //当前viewport的大小
     QRectF mArea;
     // 当前鼠标位置
-    QPainter mPos;
+    QPointF mPos;
     //字长
     qreal mMaxEidWidth;
     //每个像素与eid的数值对比关系
