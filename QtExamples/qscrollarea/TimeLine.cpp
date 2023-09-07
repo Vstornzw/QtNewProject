@@ -196,13 +196,274 @@ void TimeLine::DrawCursor(QPainter &p)
         QRectF mouseTextRect(pos,0,cursorLabelWidth,EID_LABEL_COLUMN_HEIGHT);
         mouseTextRect = mouseTextRect.adjusted(-cursorLabelWidth / 2, 0, -cursorLabelWidth / 2, 0);
         p.drawRect(mouseTextRect);
+        p.drawText(mouseTextRect,Qt::AlignCenter,QString::number(GetIntValue(GetValueByPos(mPos.x()))));
+        p.restore();
     }
 }
 
+int TimeLine::GetIntValue(qreal value)
+{
+    if(value - int(value) > 0.5) {
+        return int(value) + 1;
+    } else {
+        return (int)value;
+    }
+}
+
+qreal TimeLine::GetValueByPos(qreal posx)
+{
+    posx = posx - mPan;
+    qreal value = posx * mPerPixel;
+    return value;
+}
+
+void TimeLine::wheelEvent(QWheelEvent *e)
+{
+    // delta(),新版的Qt已经将其废除，它的返回值相当于angleDelte()的返回值y
+    qreal prevZoom = mZoom;
+    qreal maxZoom = INT_MAX / mArea.width();
+    float mod = (1.0 + e->delta() / MAX_ZOOM_RATE);
+    mZoom = qMax(1.0, mZoom * mod);
+    mZoom = qBound(1.0, mZoom, maxZoom);
+    qreal zoomDelta = (mZoom / prevZoom);
+    qreal newPan = mPan;
+    newPan -= (e->x());
+    newPan = newPan * zoomDelta;
+    newPan += (e->x());
+    qreal virtualSize = mArea.width() * mZoom;
+    mPan = qBound(-(virtualSize - mArea.width()),newPan, 0.0);
+
+    Layout();
+}
+
+void TimeLine::mouseMoveEvent(QMouseEvent *e)
+{
+    mShowCursor = true;//鼠标移动时mShowCursor=true,实现painter中的label随着鼠标移动而移动变色
+    if(mPressed) {
+        QPointF current = e->localPos();
+        int distance = current.x() - mPressPos.x();
+        mPan += distance;
+        qreal virtualSize = mArea.width() * mZoom;
+        mPan = qBound(-(virtualSize - mArea.width()), mPan, 0.0);
+        mPressPos = current;
+        //static int a = 0;
+        //QMessageBox::information(this, "title", QString::number(a++));
+        QToolTip::showText(e->globalPos(),QString::number(e->globalPos().x())+QString("/")+QString::number(e->globalPos().y()),this);
+        horizontalScrollBar()->setValue(-mPan);
+
+    }
+    mPos = e->pos();
+
+    mCurMouseEid = GetIntValue(GetValueByPos(mPos.x()));
+    QString toolTipl;
+    //获取当前块
+    UpdateMouseHoverBrickInfo(toolTipl);
+    if(!toolTipl.isNull()) {
+        QToolTip::showText(e->globalPos(),toolTip(), this);
+    }
+
+    //调用painterEvent函数
+    viewport()->update();
+}
+
+void TimeLine::UpdateMouseHoverBrickInfo(QString &toolTip)
+{
+    if(mLineHeight == 0) {
+        return;
+    }
+    int type = mPos.y() / mLineHeight;
+    auto lineType = static_cast<LineType>(type);
+    switch (lineType) {
+        case DRAW:{
+            toolTip = QString("DRAW");
+            break;
+        }
+        case TEXTURE:{
+            toolTip = QString("TEXTURE");
+            break;
+        }
+        case RENDERPASS:{
+            toolTip = QString("RENDERPASS");
+            break;
+        }
+        case VIEWPORT:{
+            toolTip = QString("VIEWPORT");
+            break;
+        }
+        case PROGRAM:{
+            toolTip = QString("VIEWPORT");
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void TimeLine::SetCurEid(QMouseEvent *e)
+{
+    qreal eid = (qreal)GetIntValue(GetValueByPos(e->pos().x()));
+    if(eid != mCurMouseEid) {
+        mCurMouseEid = eid;
+        if(!mIsFreeModel) {
+            JumpToEid();
+        }
+        else {
+            viewport()->update();
+        }
+    }
+}
+
+void TimeLine::mousePressEvent(QMouseEvent *e)
+{
+    if(e->modifiers() == Qt::ControlModifier) {
+        mPressPos = e->localPos();
+        mPressed = true;
+    } else {
+
+        qDebug() << QString::number(mPressedEidRect.x()) << QString::number(mPressedEidRect.y()) << QString::number(mPressedEidRect.width())<< QString::number(mPressedEidRect.height());
+        qDebug() << QString::number(e->pos().x());
+        if(mPressedEidRect.contains(e->pos())){
+            JumpToEid(mCurPressedEid);
+        }
+        mCurPressedEid = (qreal)GetIntValue(GetValueByPos(e->pos().x()));
+        //JumpToEid(mCurPressedEid);
+    }
+    viewport()->update();
+}
+
+void TimeLine::mouseReleaseEvent(QMouseEvent *e)
+{
+    Q_UNUSED(e);
+    mPressed = false;
+    viewport()->update();
+}
+
+void TimeLine::DrawDrawAndTexture(QPainter &p)
+{
+    p.save();
+    uint32_t drawIndex = 0;
+    for(int i = 0; i < 3000; i++) {
+        QString showStr = QString::number(i);
+        //绘制draw
+        QRect rect = EidMapToRect(i, DRAW);
+        if(i % 4 == 0) {
+            p.setBrush(mClearColor);
+        } else if (i % 4 == 1) {
+            p.setBrush(mReadColor);
+        }  else if (i % 4 == 2) {
+            p.setBrush(mWriteColor);
+        } else {
+            p.setBrush(mBrickColor);
+        }
 
 
+        SetPenColor(p, mBrickBorderColor);
+        p.drawRect(rect);
 
+        QFontMetrics fm = p.fontMetrics();
+        SetPenColor(p, mTextColor);
+        if (rect.width() > fm.width(showStr)) {
+            p.drawText(rect,Qt::AlignCenter,showStr);
+        } else {
+            p.drawText(rect, Qt::AlignVCenter, showStr);
+        }
+    }
+}
 
+QRect TimeLine::EidMapToRect(const qreal &eid, LineType lineType)
+{
+    qreal pos = GetPosByValue(eid);
+    // 1:计算两个相邻eid之间的距离
+    qreal cursorLabelWidth = GetPosByValue(1) - GetPosByValue(0);
+    if (cursorLabelWidth <= 0) {
+        cursorLabelWidth = 1;
+    }
+    QRect rect(pos, mLineHeight * (int)lineType,cursorLabelWidth,EID_LABEL_COLUMN_HEIGHT);
+    // 2:从中点偏移一半
+    rect = rect.adjusted(-cursorLabelWidth / 2, 0, -cursorLabelWidth / 2,0);
+    rect.adjust(1,-6,-1,-6);
+    if(rect.width() < 0){
+        rect.setWidth(0);
+    }
+    return rect;
+}
+
+void TimeLine::SetPenColor(QPainter &p, QColor color)
+{
+    QPen pen = p.pen();
+    pen.setColor(color);
+    p.setPen(pen);
+}
+
+void TimeLine::DrawRenderpass(QPainter &p)
+{
+    p.save();
+    p.setBrush(mBrickColor);
+
+    QRect beginRect20 = EidMapToRect(20,RENDERPASS);
+    QRect endRect35 = EidMapToRect(2500,RENDERPASS);
+    QRect renderpassRect = beginRect20.united(endRect35);
+    if(renderpassRect.x() < 0) {
+        renderpassRect.setX(0);
+    }
+
+    SetPenColor(p,mBrickBorderColor);
+    renderpassRect.adjust(0,-10,0,-10);
+    p.drawRect(renderpassRect);
+}
+
+void TimeLine::DrawCurPressedEid(QPainter &p)
+{
+    //初始化时不画这个
+    if(mCurPressedEid < 0) {
+        return;
+    }
+    p.save();;
+    qreal curEidPos = GetPosByValue(mCurMouseEid);
+    qreal showStartEid = GetIntValue(GetValueByPos(0));
+    qreal showEndEid = GetIntValue(GetValueByPos(viewport()->width()));
+    mPressedEidRect = QRect();
+    QPixmap pixmap;
+    if(!pixmap.load("images/save.png")) {
+        QToolTip::showText(mPressPos.toPoint(),QString("Error"), this);
+        return;
+    }
+
+    qreal maxMarkFlagWidth = mMaxEidWidth + pixmap.width() + PIXMAP_MARGIN * 2;
+    if(mCurMouseEid >= showStartEid && mCurPressedEid <= showEndEid) {
+        qreal unitLabelWidth = GetPosByValue(1) - GetPosByValue(0);
+        if(unitLabelWidth >= maxMarkFlagWidth) {
+            maxMarkFlagWidth = unitLabelWidth;
+        }
+        //偏移一半的宽度
+        mPressedEidRect = QRect(curEidPos - maxMarkFlagWidth / 2,0,maxMarkFlagWidth,EID_LABEL_COLUMN_HEIGHT);
+    } else {
+        if(mCurMouseEid < showStartEid) {
+            mPressedEidRect = QRect(0,0,maxMarkFlagWidth,EID_LABEL_COLUMN_HEIGHT);
+        } else {
+            mPressedEidRect = QRect(viewport()->width() - maxMarkFlagWidth,0,
+                                    maxMarkFlagWidth,EID_LABEL_COLUMN_HEIGHT);
+        }
+    }
+    //绘制竖线
+    if(curEidPos >0 && curEidPos < viewport()->width()) {
+        p.drawLine(curEidPos,EID_LABEL_COLUMN_HEIGHT,curEidPos,viewport()->height());
+    }
+    p.fillRect(mPressedEidRect,Qt::white);
+    p.drawRect(mPressedEidRect);
+    //图片偏移一半的宽度
+    p.drawPixmap(mPressedEidRect.x() + PIXMAP_MARGIN, mPressedEidRect.height() / 2 - pixmap.height() / 2,
+                 pixmap.width(),pixmap.height(),pixmap);
+
+    p.drawText(mPressedEidRect.adjusted(pixmap.width() + PIXMAP_MARGIN * 2, 0, 0, 0), Qt::AlignCenter,
+               QString::number(mCurPressedEid));
+    p.restore();
+}
+
+void TimeLine::JumpToEid(int eid)
+{
+
+}
 
 
 

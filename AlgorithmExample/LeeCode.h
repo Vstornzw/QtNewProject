@@ -55,7 +55,7 @@ ListNode* _2_tow_add(ListNode* l1, ListNode* l2) {
 
 #include <unordered_set>
 #include <algorithm>
-int lengthOfLongestSubstring(string s) {
+int _3_lengthOfLongestSubstring(string s) {
         // 哈希集合，记录每个字符是否出现过
         unordered_set<char> occ;
         int n = s.size();
@@ -115,7 +115,7 @@ void LeeCode()
 
     {
         string s = "abcdefabbbcccdddedfdfgfg";
-        int nLen = lengthOfLongestSubstring(s);
+        int nLen = _3_lengthOfLongestSubstring(s);
         int a = nLen;
     }//NO.3
 

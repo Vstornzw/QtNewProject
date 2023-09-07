@@ -81,14 +81,14 @@ private:
     //根据EID返回对应的矩形区域
     QRect EidMapToRect(const qreal &eid, LineType lineType);
     //设置画笔颜色
-    void SetPenColor(QPainter &p);
+    void SetPenColor(QPainter &p, QColor color);
 
     //
     void DrawRenderpass(QPainter &p);
     //
     void DrawCurPressedEid(QPainter &p);
     //
-    void JumpToRid(int eid);
+    void JumpToEid(int eid);
 
 private:
     uint32_t mMaxEid = 0;
@@ -109,7 +109,7 @@ private:
     //是否显示游标
     bool mShowCursor = true;
     QFont mFont;
-    QPointF mPressePos;
+    QPointF mPressPos;
     bool mPressed = false;
 
     qreal mCurPressedEid = -1;
