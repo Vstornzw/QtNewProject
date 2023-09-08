@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>306.bmp</file>
+        <file>428.bmp</file>
+        <file>500.bmp</file>
+        <file>502.bmp</file>
+        <file>508.bmp</file>
+        <file>510.bmp</file>
+        <file>512.bmp</file>
+        <file>append.bmp</file>
+        <file>clean.bmp</file>
+        <file>delete.bmp</file>
+        <file>exit.bmp</file>
+        <file>export1.bmp</file>
+        <file>import1.bmp</file>
+        <file>insert.bmp</file>
+        <file>open.bmp</file>
+        <file>remove.bmp</file>
+        <file>save.bmp</file>
+    </qresource>
+</RCC>

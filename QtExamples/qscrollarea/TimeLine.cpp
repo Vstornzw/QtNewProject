@@ -41,16 +41,16 @@ void TimeLine::SetLineHeight(const int &LineHeight)
 
 void TimeLine::Init()
 {
-    mCursorBlackgroundColor = QColor("#5ABBXCB");
+    mCursorBlackgroundColor = QColor("#5ABBCB");
     mTextHightLightColor = Qt::red;
     mReadColor = QColor("#ecad9e");
-    mReadColor = QColor("#e6ceac");
-    mReadColor = QColor("#f4606c");
-    mReadColor = QColor("#19caad");
-    mReadColor = QColor("#BBDED6");
-    mReadColor = QColor("#62C0BF");
-    mReadColor = Qt::black;
-    mReadColor = QColor("#E9E7E3");
+    mWriteColor = QColor("#e6ceac");
+    mClearColor = QColor("#f4606c");
+    mHighLightColor = QColor("#19caad");
+    mBrickColor = QColor("#BBDED6");
+    mBrickBorderColor = QColor("#62C0BF");
+    mTextColor = Qt::black;
+    mEidLaelBackgroudColor = QColor("#E9E7E3");
     mSelectedResourceRect = -1;
     mCurrentMarkIndex = -1;
     mMaxEid = 3000;//这里不是通过函数而是通过直接赋值
@@ -305,7 +305,7 @@ void TimeLine::SetCurEid(QMouseEvent *e)
     if(eid != mCurMouseEid) {
         mCurMouseEid = eid;
         if(!mIsFreeModel) {
-            JumpToEid();
+            JumpToEid(eid);
         }
         else {
             viewport()->update();
@@ -424,7 +424,7 @@ void TimeLine::DrawCurPressedEid(QPainter &p)
     qreal showEndEid = GetIntValue(GetValueByPos(viewport()->width()));
     mPressedEidRect = QRect();
     QPixmap pixmap;
-    if(!pixmap.load("images/save.png")) {
+    if(!pixmap.load(":/save.bmp")) {
         QToolTip::showText(mPressPos.toPoint(),QString("Error"), this);
         return;
     }
@@ -458,11 +458,78 @@ void TimeLine::DrawCurPressedEid(QPainter &p)
     p.drawText(mPressedEidRect.adjusted(pixmap.width() + PIXMAP_MARGIN * 2, 0, 0, 0), Qt::AlignCenter,
                QString::number(mCurPressedEid));
     p.restore();
+
 }
 
 void TimeLine::JumpToEid(int eid)
 {
+    int maxWidth = 5;
+    int textureConut = 8;
+    QString drawStr = "";
+    QFontMetrics fm(mFont);
+    for(int i = 0; i < 3000; i += 20) {
+        drawStr = QString::number(i);
+        if(i == eid) {
+            break;
+        }
+    }
+    if(textureConut == 0) {
+        maxWidth = fm.width(drawStr);
+        textureConut = 1;
+    }
+    maxWidth += 4;//前后放点4px空间
+    int needWidth = maxWidth * textureConut;
+    //现在的zoom下，每个eid的宽度
+    qreal perEidDistance = GetPosByValue(1) - GetPosByValue(0);
+    qreal ratio = (qreal)needWidth / (qreal)perEidDistance;
+    mZoom *= ratio;
+    mPan *= ratio;
+    qreal virtualSize = mArea.width() * mZoom;
+    mPan = qBound(-(virtualSize - mArea.width()),mPan, 0.0);
+    if(virtualSize == 0){
+        return;
+    }
+    mPerPixel = mMaxEidWidth / virtualSize;
+    qreal pos = GetPosByValue(eid);
+    pos -= width() / 2;
+    mPan -= pos;
+    mPan = qBound(-(virtualSize - mArea.width()), mPan, 0.0);
+    Layout();
+}
 
+void TimeLine::OnResetZoomClicked()
+{
+    mZoom = 1;
+    Layout();
+}
+
+void TimeLine::OnFindPrevClicked()
+{
+    if(mAllMarkEids.size() == 0) {
+        qDebug() << "00";
+        return;
+    }
+    if(mCurrentMarkIndex == 0) {
+        mCurrentMarkIndex = mAllMarkEids.size() - 1;
+    } else {
+        mCurrentMarkIndex--;
+    }
+    qDebug() << mCurrentMarkIndex;
+    JumpToEid(mAllMarkEids[mCurrentMarkIndex]);
+}
+
+void TimeLine::OnFindNextClicked()
+{
+    if(mAllMarkEids.size() == 0) {
+        return;
+    }
+    if (mCurrentMarkIndex == mAllMarkEids.size() - 1) {
+        mCurrentMarkIndex = 0;
+    }
+    else {
+        mCurrentMarkIndex++;
+    }
+    JumpToEid(mAllMarkEids[mCurrentMarkIndex]);
 }
 
 

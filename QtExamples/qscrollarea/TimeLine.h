@@ -22,7 +22,7 @@ class TimeLineScrollBar : public QScrollBar {
 public:
     explicit TimeLineScrollBar(QWidget *parent) : QScrollBar(parent){}
     explicit TimeLineScrollBar(Qt::Orientation ot,QWidget *parent = nullptr) : QScrollBar(ot, parent){}
-    virtual ~TimeLineScrollBar();
+    virtual ~TimeLineScrollBar(){}
 
 protected:
     void enterEvent(QEvent *e);
