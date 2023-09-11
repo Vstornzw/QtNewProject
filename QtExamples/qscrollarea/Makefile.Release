@@ -152,7 +152,24 @@ compiler_rcc_make_all: release\qrc_image.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) release\qrc_image.cpp
 release\qrc_image.cpp: images\image.qrc \
-		..\..\..\..\Soft\Qt5.12.0\5.12.0\msvc2017_64\bin\rcc.exe
+		..\..\..\..\Soft\Qt5.12.0\5.12.0\msvc2017_64\bin\rcc.exe \
+		images\508.bmp \
+		images\delete.bmp \
+		images\exit.bmp \
+		images\512.bmp \
+		images\import1.bmp \
+		images\export1.bmp \
+		images\save.bmp \
+		images\502.bmp \
+		images\open.bmp \
+		images\428.bmp \
+		images\insert.bmp \
+		images\510.bmp \
+		images\append.bmp \
+		images\306.bmp \
+		images\clean.bmp \
+		images\500.bmp \
+		images\remove.bmp
 	D:\Soft\Qt5.12.0\5.12.0\msvc2017_64\bin\rcc.exe -name image images\image.qrc -o release\qrc_image.cpp
 
 compiler_moc_predefs_make_all: release\moc_predefs.h
