@@ -77,7 +77,9 @@ void MainWindow::timerSlot()
   mPlot->xAxis->rescale();
   mGraph1->rescaleValueAxis(false, true);
   mGraph2->rescaleValueAxis(false, true);
-  mPlot->xAxis->setRange(mPlot->xAxis->range().upper, 100, Qt::AlignRight);
+  //mPlot->xAxis->setRange(mPlot->xAxis->range().upper, 100, Qt::AlignRight);
+  mPlot->xAxis->setRange(mPlot->xAxis->range().upper, mGraph2->dataCount(), Qt::AlignRight);
+
   
   // update the vertical axis tag positions and texts to match the rightmost data point of the graphs:
   double graph1Value = mGraph1->dataMainValue(mGraph1->dataCount()-1);
@@ -89,3 +91,8 @@ void MainWindow::timerSlot()
   
   mPlot->replot();
 }
+
+void MainWindow::on_actiontest_triggered()
+{
+}
+

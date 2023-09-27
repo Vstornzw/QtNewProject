@@ -45,6 +45,8 @@ public:
 private slots:
   void timerSlot();
   
+  void on_actiontest_triggered();
+
 private:
   Ui::MainWindow *ui;
   QCustomPlot *mPlot;
