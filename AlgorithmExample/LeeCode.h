@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <functional>
+#include <string>
+#include <stack>
 using namespace std;
 
 vector<int> _1_twoSum(vector<int>& nums, int target) {
@@ -83,13 +86,16 @@ void LeeCode()
 
 
     {
+        #if 0
         vector<int> numsVec = {2,7,8,9,10};
         vector<int> nums = _1_twoSum(numsVec, 9);
         int a = 0;
+        #endif
     } //NO.1
 
 
     {
+        #if 0
         // 制造数据
         ListNode* l1_2 = new ListNode(9);
         ListNode* l1_1 = new ListNode(4, l1_2);
@@ -110,18 +116,83 @@ void LeeCode()
         delete l2_1;
         delete l2;
         delete node;
+        #endif
     } //NO.2
 
 
     {
+        #if 0
         string s = "abcdefabbbcccdddedfdfgfg";
         int nLen = _3_lengthOfLongestSubstring(s);
         int a = nLen;
+        #endif
     }//NO.3
 
 
     {
+        #if 0
+        string MAPPING[10] = {"","","abc","def","ghi","mno","pqrs","tuv","wxyz"};
+        string src = "23";
+        int n = src.length();
+        if(n == 0) {
+            return ;
+        }
+        vector<string> ans;
+        string path(n, 0);
+        function<void(int)> dfs = [&](int i){
+            if (i == n) {
+                //http://c.biancheng.net/view/6826.html
+                ans.emplace_back(path);
+                return;
+            }
+            for(char c : MAPPING[src[i] - '0']) {
+                path[i] = c;
+                dfs(i+1);
+            }
+        };
+        dfs(0);
 
-    }
+        cout << "******** NO.17 ********" << endl;
+        int count = 0;
+        for(auto strNum : ans) {
+            count++;
+            cout << strNum << endl;
+        }
+        cout << "count" << count <<endl;
+        cout << "******** NO.17 ********" << endl;
+
+        #endif
+    }//NO.17
+
+    {
+        #if 0
+        //https://leetcode.cn/problems/valid-parentheses/solutions/89144/zhu-bu-fen-xi-tu-jie-zhan-zhan-shi-zui-biao-zhun-d/
+        unordered_map<char,int> m{{'(',1},{'[',2},{'{',3},
+                                        {')',4},{']',5},{'}',6}};
+        string str = "([])}";
+        stack<char> st;
+        bool istrue=true;
+        for(char c: str){
+            int flag=m[c];
+            if(flag>=1&&flag<=3) st.push(c);
+            else if(!st.empty()&&m[st.top()]==flag-3) st.pop();
+            else {istrue=false;break;}
+        }
+        if(!st.empty()) istrue=false;
+
+        cout << "******** NO.20 ********" << endl;
+        if(istrue) {
+            cout << "valud" << endl;
+        } else {
+            cout << "novalud" << endl;
+        }
+        cout << "******** NO.20 ********" << endl;
+        #endif
+    }//NO.20
+
+    {
+        #if 1
+        #endif
+    }//NO.N
 }
 #endif // LEECODE_H
