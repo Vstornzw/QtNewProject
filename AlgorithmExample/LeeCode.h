@@ -81,6 +81,15 @@ int _3_lengthOfLongestSubstring(string s) {
         return ans;
 }//NO.3
 
+pair<int, int>  _5_expandAroundCenter(const string&s, int left, int right) {
+    while (left >= 0 && right < s.size() && s[left] == s[right]) {
+        --left;
+        ++right;
+    }
+
+    return {left + 1, right - 1};
+}//NO.5
+
 void LeeCode()
 {
 
@@ -127,6 +136,29 @@ void LeeCode()
         int a = nLen;
         #endif
     }//NO.3
+
+    {
+        //官力扣官方解题视频
+        //https://leetcode.cn/problems/longest-palindromic-substring/solutions/255195/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/
+        #if 1
+        // 中心扩散方法
+        int iStart = 0, iEnd = 0;
+        string str = "abccbad";
+        for (int i = 0; i < str.size(); ++i) {
+            auto p1 = _5_expandAroundCenter(str, i, i);
+            auto p2 = _5_expandAroundCenter(str, i, i + 1);
+            if (p1.second - p1.first > iEnd - iStart) {
+                iStart = p1.first;
+                iEnd = p1.second;
+            }
+            if (p2.second - p2.first > iEnd - iStart) {
+                iStart = p2.first;
+                iEnd = p2.second;
+            }
+        }
+        cout << str.substr(iStart, iEnd - iStart + 1) << endl;
+        #endif
+    }//NO.5
 
 
     {
